@@ -95,8 +95,8 @@ dll: $(DLL)
 $(OBJS1): ..\apache2\$*.c
         $(CC) $(CFLAGS) -c ..\apache2\$*.c -Fo$@
 
-$(OBJS4): ..\apache2\libinjection\$*.c
-        $(CC) $(CFLAGS) -c ..\apache2\libinjection\$*.c -Fo$@
+$(OBJS4): ..\apache2\others\libinjection\src\$*.c
+        $(CC) $(CFLAGS) -c ..\apache2\others\libinjection\src\$*.c -Fo$@
 
 $(OBJS2): ..\standalone\$*.c
         $(CC) $(CFLAGS) -c ..\standalone\$*.c -Fo$@

@@ -14,7 +14,7 @@
 @echo apache2...
 @cd /d "%CURRENT_DIR%\..\apache2"
 @del /q *.obj *.dll *.lib 2>nul
-@del /q libinjection\*.obj libinjection\*.dll libinjection\*.lib 2>nul
+@del /q others\libinjection\src\*.obj others\libinjection\src\*.dll others\libinjection\src\*.lib 2>nul
 NMAKE -f Makefile.win APACHE=..\iis\%DEPENDENCIES_DIR%\Apache24 PCRE=..\iis\%DEPENDENCIES_DIR%\pcre LIBXML2=..\iis\%DEPENDENCIES_DIR%\libxml2 LUA=..\iis\%DEPENDENCIES_DIR%\lua\src VERSION=VERSION_IIS YAJL=..\iis\%DEPENDENCIES_DIR%\yajl\build\yajl-2.1.0 SSDEEP=..\iis\%DEPENDENCIES_DIR%\ssdeep CURL=..\iis\%DEPENDENCIES_DIR%\curl IIS_BUILD=yes
 @if errorlevel 1 goto build_failed
 

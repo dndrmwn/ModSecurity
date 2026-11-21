@@ -251,9 +251,9 @@ net start W3SVC /y</Command>
     <ClCompile Include="..\apache2\apache2_config.c" />
     <ClCompile Include="..\apache2\apache2_io.c" />
     <ClCompile Include="..\apache2\apache2_util.c" />
-    <ClCompile Include="..\apache2\libinjection\libinjection_html5.c" />
-    <ClCompile Include="..\apache2\libinjection\libinjection_sqli.c" />
-    <ClCompile Include="..\apache2\libinjection\libinjection_xss.c" />
+    <ClCompile Include="..\apache2\others\libinjection\src\libinjection_html5.c" />
+    <ClCompile Include="..\apache2\others\libinjection\src\libinjection_sqli.c" />
+    <ClCompile Include="..\apache2\others\libinjection\src\libinjection_xss.c" />
     <ClCompile Include="..\apache2\modsecurity.c" />
     <ClCompile Include="..\apache2\mod_security2.c" />
     <ClCompile Include="..\apache2\msc_status_engine.c" />
@@ -301,8 +301,8 @@ net start W3SVC /y</Command>
   <ItemGroup>
     <ClInclude Include="..\apache2\acmp.h" />
     <ClInclude Include="..\apache2\apache2.h" />
-    <ClInclude Include="..\apache2\libinjection\libinjection.h" />
-    <ClInclude Include="..\apache2\libinjection\libinjection_sqli_data.h" />
+    <ClInclude Include="..\apache2\others\libinjection\src\libinjection.h" />
+    <ClInclude Include="..\apache2\others\libinjection\src\libinjection_sqli_data.h" />
     <ClInclude Include="..\apache2\modsecurity.h" />
     <ClInclude Include="..\apache2\modsecurity_config.h" />
     <ClInclude Include="..\apache2\modsecurity_config_auto.h" />

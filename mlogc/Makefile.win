@@ -13,7 +13,7 @@ CURL = %CURL%
 # Linking libraries
 LIBS = $(BASE)\lib\libapr-1.lib \
        $(BASE)\lib\libaprutil-1.lib \
-       $(PCRE)\pcre.lib \
+       $(PCRE)\pcre2-8.lib \
        $(CURL)\libcurl.lib \
        wsock32.lib
 

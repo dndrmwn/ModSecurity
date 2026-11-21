@@ -7,9 +7,10 @@
 !ENDIF
 
 # Linking libraries
-LIBS = $(APACHE)\lib\libapr-1.lib \
+LIBS = $(APACHE)\lib\libhttpd.lib \
+       $(APACHE)\lib\libapr-1.lib \
        $(APACHE)\lib\libaprutil-1.lib \
-       $(PCRE)\pcre.lib \
+       $(PCRE)\pcre2-8.lib \
        $(CURL)\libcurl.lib \
        $(LIBXML2)\win32\bin.msvc\libxml2.lib \
        "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" \

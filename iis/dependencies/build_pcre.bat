@@ -11,16 +11,15 @@
 @if not exist "%WORK_DIR%\pcre\CMakeLists.txt" goto build_failed
 
 @cd /d "%WORK_DIR%\pcre"
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=True
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=ON -DPCRE2_BUILD_PCRE2_8=ON -DPCRE2_BUILD_PCRE2_16=OFF -DPCRE2_BUILD_PCRE2_32=OFF -DPCRE2_BUILD_PCRE2GREP=OFF -DPCRE2_BUILD_TESTS=OFF
 @if errorlevel 1 goto build_failed
 nmake
 @if errorlevel 1 goto build_failed
 @cd /d "%WORK_DIR%"
 
-copy /y "%WORK_DIR%\pcre\pcre.dll" "%OUTPUT_DIR%" || goto build_failed
-copy /y "%WORK_DIR%\pcre\pcre.lib" "%OUTPUT_DIR%" || goto build_failed
-@if exist "%WORK_DIR%\pcre\pcre.pdb" copy /y "%WORK_DIR%\pcre\pcre.pdb" "%OUTPUT_DIR%" || goto build_failed
-if exist "%WORK_DIR%\pcre\pcre.h.generic" copy /y "%WORK_DIR%\pcre\pcre.h.generic" "%WORK_DIR%\pcre\pcre.h" || goto build_failed
+copy /y "%WORK_DIR%\pcre\pcre2-8.dll" "%OUTPUT_DIR%" || goto build_failed
+copy /y "%WORK_DIR%\pcre\pcre2-8.lib" "%OUTPUT_DIR%" || goto build_failed
+@if exist "%WORK_DIR%\pcre\pcre2-8.pdb" copy /y "%WORK_DIR%\pcre\pcre2-8.pdb" "%OUTPUT_DIR%" || goto build_failed
 @exit /B 0
 
 :file_not_found_bin

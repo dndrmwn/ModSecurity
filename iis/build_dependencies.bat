@@ -8,7 +8,7 @@
 
 :: Dependencies
 @set CMAKE=cmake-3.31.12-windows-i386.zip
-@set PCRE=pcre-8.45.zip
+@set PCRE=pcre2-10.49.zip
 @set ZLIB=zlib-1.4.tar.gz
 @set LIBXML2=libxml2-v2.13.9.tar.gz
 @set LUA=lua-5.5.1.tar.gz

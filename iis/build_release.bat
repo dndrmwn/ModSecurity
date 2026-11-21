@@ -41,7 +41,7 @@ copy /y "%OUTPUT_DIR%\libxml2.dll" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\lua5.1.dll" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\mlogc.exe" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\ModSecurityIIS.dll" "%AMD64%" || goto build_failed
-copy /y "%OUTPUT_DIR%\pcre.dll" "%AMD64%" || goto build_failed
+copy /y "%OUTPUT_DIR%\pcre2-8.dll" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\zlib1.dll" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\yajl.dll" "%AMD64%" || goto build_failed
 copy /y "%OUTPUT_DIR%\fuzzy.dll" "%AMD64%" || goto build_failed
@@ -64,7 +64,7 @@ copy /y "%OUTPUT_DIR%\libxml2.dll" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\lua5.1.dll" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\mlogc.exe" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\ModSecurityIIS.dll" "%X86%" || goto build_failed
-copy /y "%OUTPUT_DIR%\pcre.dll" "%X86%" || goto build_failed
+copy /y "%OUTPUT_DIR%\pcre2-8.dll" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\zlib1.dll" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\yajl.dll" "%X86%" || goto build_failed
 copy /y "%OUTPUT_DIR%\fuzzy.dll" "%X86%" || goto build_failed

@@ -1,35 +1,29 @@
-cd "%WORK_DIR%"
-
-echo "%SOURCE_DIR%\%SSDEEP%"
-echo "%SOURCE_DIR%\%SSDEEP_BIN%"
+@cd /d "%WORK_DIR%"
 
 @if NOT EXIST "%SOURCE_DIR%\%SSDEEP%" goto build_failed
+@if NOT EXIST "%SOURCE_DIR%\%SSDEEP_BIN%" goto build_failed
 
-@7z.exe x "%SOURCE_DIR%\%SSDEEP_BIN%"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-@7z.exe x "%SOURCE_DIR%\%SSDEEP%" -so | 7z.exe x -aoa -si -ttar 
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
+@7z.exe x -y "%SOURCE_DIR%\%SSDEEP_BIN%" -o"%WORK_DIR%"
+@if errorlevel 1 goto build_failed
+@7z.exe x -y -so "%SOURCE_DIR%\%SSDEEP%" | 7z.exe x -y -aoa -si -ttar
+@if errorlevel 1 goto build_failed
 
-set SSDEEP_DIR=%SSDEEP_BIN:~0,-4%
+@set "SSDEEP_DIR=%SSDEEP_BIN:~0,-4%"
+@if exist "%SSDEEP_DIR%" move /y "%SSDEEP_DIR%" "ssdeep"
+@if errorlevel 1 goto build_failed
+@cd /d "%WORK_DIR%\ssdeep"
+@if errorlevel 1 goto build_failed
 
-move "%SSDEEP_DIR%" "ssdeep"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-cd "%WORK_DIR%\ssdeep\"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-
-@set SSDEEP_ARCH="x86"
-@call cl 2>&1 | findstr /C:"x64"
-@if (%ERRORLEVEL%) == (0) set SSDEEP_ARCH="x64"
+@set "SSDEEP_ARCH=x86"
+@call cl 2>&1 | findstr /C:"x64" >nul
+@if not errorlevel 1 set "SSDEEP_ARCH=x64"
 
 lib /machine:%SSDEEP_ARCH% /def:fuzzy.def
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
+@if errorlevel 1 goto build_failed
 
-copy /y "%WORK_DIR%\ssdeep\fuzzy.dll" "%OUTPUT_DIR%"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-copy /y "%WORK_DIR%\ssdeep\fuzzy.def" "%OUTPUT_DIR%"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-copy /y "%WORK_DIR%\ssdeep\fuzzy.lib" "%OUTPUT_DIR%"
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
+copy /y "%WORK_DIR%\ssdeep\fuzzy.dll" "%OUTPUT_DIR%" || goto build_failed
+copy /y "%WORK_DIR%\ssdeep\fuzzy.def" "%OUTPUT_DIR%" || goto build_failed
+copy /y "%WORK_DIR%\ssdeep\fuzzy.lib" "%OUTPUT_DIR%" || goto build_failed
 
 
 @exit /B 0

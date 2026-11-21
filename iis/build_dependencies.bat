@@ -37,67 +37,67 @@
 if EXIST "%WORK_DIR%" @rmdir /s /q "%WORK_DIR%"
 if EXIST "%OUTPUT_DIR%" @rmdir /s /q "%OUTPUT_DIR%"
 @mkdir "%WORK_DIR%"
-@if NOT (%ERRORLEVEL%) == (0) goto failed_to_cleanup
+@if errorlevel 1 goto failed_to_cleanup
 @mkdir "%OUTPUT_DIR%"
-@if NOT (%ERRORLEVEL%) == (0) goto failed_to_cleanup
+@if errorlevel 1 goto failed_to_cleanup
 
 @echo Checking for vcargs... %1
-@if NOT (%1) == "" call %1
-@if (%ERRORLEVEL%) == (1) goto build_wrong_vcargs
+@if not "%~1"=="" call "%~1"
+@if errorlevel 1 goto build_wrong_vcargs
 
-set APACHE_BIN=%APACHE_BIN32%
-call cl 2>&1 | findstr /C:"x64"
-@if (%ERRORLEVEL%) == (0) set APACHE_BIN=%APACHE_BIN64%
+@set "APACHE_BIN=%APACHE_BIN32%"
+@call cl 2>&1 | findstr /C:"x64" >nul
+@if not errorlevel 1 set "APACHE_BIN=%APACHE_BIN64%"
 
 @echo Starting with the depdendencies...
 @echo # CMake. - %CMAKE%
 @call dependencies/build_cmake.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_cmake
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 
-@echo # Apache - %HTTPD%/%APACHE24_ZIP%
+@echo # Apache - %APACHE_SRC%/%APACHE_BIN%
 @call dependencies/build_apache.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_apache
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # pcre. - %PCRE%
 @call dependencies/build_pcre.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_pcre
-@cd "%CURRENT_DIR%
+@cd /d "%CURRENT_DIR%"
 
 @echo # zlib - %ZLIB%
 @call dependencies/build_zlib.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_zlib
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # libxml2 - %LIBXML2%
 @call dependencies/build_libxml2.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_libxml2
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # lua - %LUA%
 @call dependencies/build_lua.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_lua
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # curl - %CURL%
 @call dependencies/build_curl.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_curl
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # yajl - %YAJL%
 @call dependencies/build_yajl.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_yajl
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo # ssdeep - %SSDEEP%
 @call dependencies/build_ssdeep.bat
 @if NOT (%ERRORLEVEL%) == (0) goto build_failed_ssdeep
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 
 @echo All dependencies were built successfully.
-@cd "%CURRENT_DIR%"
+@cd /d "%CURRENT_DIR%"
 @exit /B 0
 
 :failed_to_cleanup
@@ -109,7 +109,7 @@ call cl 2>&1 | findstr /C:"x64"
 @goto failed
 
 :build_failed_apache
-@echo Failed to setup %HTTPD%/%APACHE24_ZIP%...
+@echo Failed to setup %APACHE_SRC%/%APACHE_BIN%...
 @goto failed
 
 :build_failed_pcre

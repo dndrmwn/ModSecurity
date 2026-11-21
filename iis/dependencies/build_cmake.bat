@@ -1,10 +1,9 @@
-@cd "%WORK_DIR%"
+@cd /d "%WORK_DIR%"
 
 @if NOT EXIST "%SOURCE_DIR%\%CMAKE%" goto file_not_found
 
-
-@7z.exe x "%SOURCE_DIR%\%CMAKE%"
-@if NOT (%ERRORLEVEL%) == (0) goto something_went_wrong
+@7z.exe x -y "%SOURCE_DIR%\%CMAKE%"
+@if errorlevel 1 goto something_went_wrong
 
 @exit /B 0
 

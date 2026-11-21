@@ -1,24 +1,28 @@
-cd "%WORK_DIR%"
+@cd /d "%WORK_DIR%"
 
 @if NOT EXIST "%SOURCE_DIR%\%ZLIB%" goto file_not_found_bin
 
+@7z.exe x -y -so "%SOURCE_DIR%\%ZLIB%" | 7z.exe x -y -aoa -si -ttar
+@if errorlevel 1 goto build_failed
 
-@7z.exe x "%SOURCE_DIR%\%ZLIB%" -so | 7z.exe x -aoa -si -ttar 
+@set "ZLIB_DIR=%ZLIB:~0,-7%"
+@if /i "%ZLIB:~-4%"==".zip" @set "ZLIB_DIR=%ZLIB:~0,-4%"
 
-set ZLIB_DIR=%ZLIB:~0,-7%
+@if exist "%ZLIB_DIR%" move /y "%ZLIB_DIR%" "zlib"
+@if errorlevel 1 goto build_failed
+@if not exist "%WORK_DIR%\zlib\win32\Makefile.msc" goto build_failed
 
-move "%ZLIB_DIR%" "zlib"
-
-cd "zlib"
+@cd /d "%WORK_DIR%\zlib"
 nmake -f win32\Makefile.msc
-@if NOT (%ERRORLEVEL%) == (0) goto build_failed
-SET INCLUDE=%INCLUDE%;%WORK_DIR%\zlib
-SET LIB=%LIB%;%WORK_DIR%\zlib
-cd "%WORK_DIR%"
+@if errorlevel 1 goto build_failed
 
-copy /y "%WORK_DIR%\zlib\zlib1.dll" "%OUTPUT_DIR%"
-copy /y "%WORK_DIR%\zlib\zlib1.pdb" "%OUTPUT_DIR%"
-copy /y "%WORK_DIR%\zlib\zdll.lib" "%OUTPUT_DIR%"
+@set "INCLUDE=%INCLUDE%;%WORK_DIR%\zlib"
+@set "LIB=%LIB%;%WORK_DIR%\zlib"
+@cd /d "%WORK_DIR%"
+
+copy /y "%WORK_DIR%\zlib\zlib1.dll" "%OUTPUT_DIR%" || goto build_failed
+copy /y "%WORK_DIR%\zlib\zdll.lib" "%OUTPUT_DIR%" || goto build_failed
+@if exist "%WORK_DIR%\zlib\zlib1.pdb" copy /y "%WORK_DIR%\zlib\zlib1.pdb" "%OUTPUT_DIR%" || goto build_failed
 
 @exit /B 0
 

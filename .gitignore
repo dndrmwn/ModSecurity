@@ -116,4 +116,7 @@ tests/*.pl
 tests/*.trs
 tests/*.log
 
-
+# IIS stuff
+iis/dependencies/build_dir
+iis/dependencies/release_files
+iis/release

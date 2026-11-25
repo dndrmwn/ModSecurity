@@ -1,3 +1,5 @@
+@setlocal
+
 :: Those variables should be edited as needed.
 :: Use full paths.
 
@@ -24,7 +26,7 @@
 
 :: Aditional paths.
 @set "DIR_7ZIP=c:\program files\7-zip"
-@set PATH=%PATH%;%CMAKE_DIR%;%DIR_7ZIP%
+@set "PATH=%PATH%;%CMAKE_DIR%;%DIR_7ZIP%"
 
 :: Do not edit bellow this line.
 @set CURRENT_DIR=%cd%
@@ -94,7 +96,7 @@ if EXIST "%OUTPUT_DIR%" @rmdir /s /q "%OUTPUT_DIR%"
 
 @echo All dependencies were built successfully.
 @cd /d "%CURRENT_DIR%"
-@exit /B 0
+@endlocal & exit /B 0
 
 :failed_to_cleanup
 @echo Failed to cleanup
@@ -142,5 +144,5 @@ if EXIST "%OUTPUT_DIR%" @rmdir /s /q "%OUTPUT_DIR%"
 
 :failed
 @cd %CURRENT_DIR%
-@exit /B 1
+@endlocal & exit /B 1
 

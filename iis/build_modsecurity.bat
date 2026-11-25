@@ -1,3 +1,4 @@
+@setlocal
 
 @echo off
 @set "DEPENDENCIES_DIR=dependencies\build_dir"
@@ -39,7 +40,7 @@ copy /y "..\mlogc\mlogc.exe" "%OUTPUT_DIR%" || goto build_failed
 copy /y "..\iis\modsecurityiis.dll" "%OUTPUT_DIR%" || goto build_failed
 copy /y "..\iis\modsecurityiis.pdb" "%OUTPUT_DIR%" || goto build_failed
 
-@exit /B 0
+@endlocal & exit /B 0
 
 :build_wrong_vcargs
 @echo Please specify a valid vcargs
@@ -51,5 +52,5 @@ copy /y "..\iis\modsecurityiis.pdb" "%OUTPUT_DIR%" || goto build_failed
 
 :failed
 @cd /d "%CURRENT_DIR%"
-@exit /B 1
+@endlocal & exit /B 1
 
